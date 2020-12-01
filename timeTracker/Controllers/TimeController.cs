@@ -10,6 +10,8 @@ namespace timeTracker.Controllers
     {
         public IActionResult timeIndex()
         {
+            ViewBag.Month = DateTime.Now.ToString("MMMM");
+            ViewBag.Year = DateTime.Now.Year;
             return View();
         }
     }
