@@ -24,6 +24,19 @@
                     <li class="nav-item active">
                         <a class="nav-link" asp-controller="Time" asp-action="timeIndex">Time Tracker</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Time">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <form method="post" asp-action="Logout" asp-controller="Account"
+                              asp-area="">
+                            <input type="submit" value="Log Out"
+                                   class="btn btn-outline-light" />
+                            <span class="text-light">@User.Identity.Name</span>
+                        </form>
+                    </li>
+
                 </ul>
             </div>
         </nav>

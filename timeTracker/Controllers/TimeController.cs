@@ -18,13 +18,23 @@ namespace timeTracker.Controllers
         }
 
         [Route("/index")]
-        public IActionResult timeIndex()
+        public IActionResult timeIndex(int month = 13,  int currentYear = -99)
         {
             ViewBag.Month = DateTime.Now.ToString("MMMM");
             ViewBag.Year = DateTime.Now.Year;
             ViewBag.Today = DateTime.Now;
             List<Event> events = context.Events.OrderBy(x => x.start).ToList();
             return View(events);
+        }
+
+        [HttpPost]
+        public IActionResult filter(int months, int years)
+        {
+            int selectedMonth = months;
+            int selectedYears = years;
+            ViewBag.Month = selectedMonth;
+            ViewBag.Years = selectedYears;
+            return View();
         }
 
         [Route("/add")]
