@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,33 +9,26 @@ using timeTracker.Models;
 
 namespace timeTracker.Controllers
 {
+    //[Authorize]
     public class TimeController : Controller
     {
-        private ApplicationDbContext context { get; set; }
-        
-        public TimeController(ApplicationDbContext ctx)
+        // private ApplicationDbContext context { get; set; }
+        private IEventUnitOfWork _uow;
+
+        public TimeController(IEventUnitOfWork uow)
         {
-            context = ctx;
+            _uow = uow;
         }
 
         [Route("/index")]
-        public IActionResult timeIndex(int month = 13,  int currentYear = -99)
+        public IActionResult timeIndex()
         {
             ViewBag.Month = DateTime.Now.ToString("MMMM");
             ViewBag.Year = DateTime.Now.Year;
             ViewBag.Today = DateTime.Now;
-            List<Event> events = context.Events.OrderBy(x => x.start).ToList();
-            return View(events);
-        }
+            List<Event> events = _uow.Events.List().ToList(); //.OrderBy(x => x.start).ToList();
 
-        [HttpPost]
-        public IActionResult filter(int months, int years)
-        {
-            int selectedMonth = months;
-            int selectedYears = years;
-            ViewBag.Month = selectedMonth;
-            ViewBag.Years = selectedYears;
-            return View();
+            return View(events);
         }
 
         [Route("/add")]
@@ -47,24 +41,28 @@ namespace timeTracker.Controllers
         [HttpGet]
         public IActionResult EditEvent(int id)
         {
-            var ev = context.Events.Find(id);
+            // var ev = context.Events.Find(id);
+            var ev = _uow.Events.Get(id);
             return View(ev);
         }
 
         [HttpPost]
         public IActionResult EditEvent(Event ev)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                if(ev.EventId == 0)
+                if (ev.EventId == 0)
                 {
-                    context.Events.Add(ev);
+                    // context.Events.Add(ev);
+                    _uow.Events.Insert(ev);
                 }
                 else
                 {
-                    context.Events.Update(ev);
+                    // context.Events.Update(ev);
+                    _uow.Events.Update(ev);
                 }
-                context.SaveChanges();
+                // context.SaveChanges();
+                _uow.Save();
                 return RedirectToAction("timeIndex");
             }
             else
@@ -75,9 +73,12 @@ namespace timeTracker.Controllers
 
         public IActionResult Delete(int id)
         {
-            var ev = context.Events.Find(id);
-            context.Events.Remove(ev);
-            context.SaveChanges();
+            // var ev = context.Events.Find(id);
+            var ev = _uow.Events.Get(id);
+            //context.Events.Remove(ev);
+            _uow.Events.Delete(ev);
+            // context.SaveChanges();
+            _uow.Events.Save();
             return RedirectToAction("timeIndex");
         }
     }

@@ -1,4 +1,4 @@
-﻿@model List<Event> 
+﻿@model List<Event>
 @{
     ViewData["Title"] = "timeIndex";
 }
@@ -73,10 +73,10 @@
 <h1>All Events</h1>
 
 <div id="mySidebar" class="sidebar">
-    <form asp-controller="Time" , asp-action="filter" , method="post">
+    <form asp-controller="" , asp-action="" , method="">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
         <h2>Month</h2>
-        <select name="months">
+        <select>
             @for (int i = 1; i <= 12; i++)
             {
                 DateTime now = new DateTime(2010, @i, 1);
@@ -85,10 +85,14 @@
             }
         </select>
         <h2>Year</h2>
-        <input name="years" type="number" value="0" class="form-control">
+        <input type="number">
         <br />
         <br />
         <button type="submit" class="btn btn-primary">Filter</button>
+        <button asp-controller="Ticketing" asp-action="ticketIndex" asp-route-id=""
+                class="btn btn-primary">
+            Clear
+        </button>
     </form>
 </div>
 
@@ -115,14 +119,14 @@
     </div>
 </div>
 
-    <script>
-        function openNav() {
-            document.getElementById("mySidebar").style.width = "250px";
-            document.getElementById("main").style.marginLeft = "250px";
-        }
+<script>
+    function openNav() {
+        document.getElementById("mySidebar").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+    }
 
-        function closeNav() {
-            document.getElementById("mySidebar").style.width = "0";
-            document.getElementById("main").style.marginLeft = "0";
-        }
-    </script>
+    function closeNav() {
+        document.getElementById("mySidebar").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+    }
+</script>

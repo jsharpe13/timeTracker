@@ -15,28 +15,15 @@
                     data-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav md-auto">
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse nav-item">
+                <partial name="_LoginPartial" />
+                <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item active">
                         <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" asp-controller="Time" asp-action="timeIndex">Time Tracker</a>
+                        <a class="nav-link" asp-controller="Time" asp-action="timeIndex">Events</a>
                     </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Time">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <form method="post" asp-action="Logout" asp-controller="Account"
-                              asp-area="">
-                            <input type="submit" value="Log Out"
-                                   class="btn btn-outline-light" />
-                            <span class="text-light">@User.Identity.Name</span>
-                        </form>
-                    </li>
-
                 </ul>
             </div>
         </nav>
