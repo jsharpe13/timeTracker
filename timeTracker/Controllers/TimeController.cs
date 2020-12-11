@@ -9,7 +9,7 @@ using timeTracker.Models;
 
 namespace timeTracker.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class TimeController : Controller
     {
         // private ApplicationDbContext context { get; set; }
