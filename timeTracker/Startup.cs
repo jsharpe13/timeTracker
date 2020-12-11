@@ -33,7 +33,7 @@ namespace timeTracker
                    Configuration.GetConnectionString("FinalContext")));
             services.AddDefaultIdentity<IdentityUser>(options =>
             {
-                options.SignIn.RequireConfirmedAccount = true;
+                options.SignIn.RequireConfirmedAccount = false;
                 options.SignIn.RequireConfirmedEmail = false;
             }).AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
