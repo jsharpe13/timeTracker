@@ -1,6 +1,8 @@
 ﻿@model List<Event>
 @{
     ViewData["Title"] = "timeIndex";
+    string isToday(Event ev) => ev.isToday ? "bg-success text-white" : "";
+    string isPast(Event ev) => ev.isPast ? "bg-warning" : "";
 }
 <style>
     #event {
@@ -70,29 +72,33 @@
         padding: 16px;
     }
 </style>
-<h1>All Events</h1>
+<h1 style="text-align:center">@ViewBag.Month @ViewBag.Year</h1>
+<p>@ViewBag.Today</p>
 
 <div id="mySidebar" class="sidebar">
-    <form asp-controller="" , asp-action="" , method="">
+    <form asp-controller="Time" , asp-action="filter" , method="post">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
         <h2>Month</h2>
-        <select>
+        <select name="months">
             @for (int i = 1; i <= 12; i++)
             {
                 DateTime now = new DateTime(2010, @i, 1);
                 string month = now.ToString("MMMM");
-                <option value=@i>@month</option>
+                if (i == @ViewBag.MonthNumber)
+                {
+                    <option value=@i selected>@month</option>
+                }
+                else
+                {
+                    <option value=@i>@month</option>
+                }
             }
         </select>
         <h2>Year</h2>
-        <input type="number">
+        <input type="number" min="2000" name="years" value=@ViewBag.Year>
         <br />
         <br />
         <button type="submit" class="btn btn-primary">Filter</button>
-        <button asp-controller="Ticketing" asp-action="ticketIndex" asp-route-id=""
-                class="btn btn-primary">
-            Clear
-        </button>
     </form>
 </div>
 
@@ -104,8 +110,9 @@
     <div class="row">
         @foreach (var e in Model)
         {
-            <div id="event" class="col-md-3" style="background-color:">
-                <p>@e.EventId</p>
+            string istoday = isToday(e);
+            string ispast = isPast(e);
+            <div id="event" class="col-md-3 @istoday @ispast" style="background-color:">
                 <p>@e.Name</p>
                 <p>@e.Description</p>
                 <p>From: @e.start</p>

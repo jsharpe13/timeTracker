@@ -24,5 +24,9 @@ namespace timeTracker.Models
         [Required(ErrorMessage = "Please enter an end time")]
         public DateTime end { get; set; }
 
+        public bool isToday => start.Date == DateTime.Today;
+
+        public bool isPast => start.Date < DateTime.Today;
+
     }
 }
