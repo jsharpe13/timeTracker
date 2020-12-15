@@ -15,6 +15,11 @@ namespace timeTracker.Data
             : base(options)
         {
         }
+
+        protected ApplicationDbContext()
+        {
+
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
