@@ -30,7 +30,7 @@ namespace timeTracker.Controllers
         public IActionResult timeIndex(int month=13, int year=0)
         {
             try {
-                    ViewBag.Month = DateTime.Now.ToString("MMMM");
+                ViewBag.Month = DateTime.Now.ToString("MMMM");
                 ViewBag.MonthNumber = DateTime.Now.Month;
                 ViewBag.Year = DateTime.Now.Year;
 

@@ -73,7 +73,6 @@
     }
 </style>
 <h1 style="text-align:center">@ViewBag.Month @ViewBag.Year</h1>
-<p>@ViewBag.Today</p>
 
 <div id="mySidebar" class="sidebar">
     <form asp-controller="Time" , asp-action="filter" , method="post">
@@ -86,11 +85,11 @@
                 string month = now.ToString("MMMM");
                 if (i == @ViewBag.MonthNumber)
                 {
-                    <option value=@i selected>@month</option>
+            <option value=@i selected>@month</option>
                 }
                 else
                 {
-                    <option value=@i>@month</option>
+            <option value=@i>@month</option>
                 }
             }
         </select>
@@ -112,16 +111,16 @@
         {
             string istoday = isToday(e);
             string ispast = isPast(e);
-            <div id="event" class="col-md-3 @istoday @ispast" style="background-color:">
-                <p>@e.Name</p>
-                <p>@e.Description</p>
-                <p>From: @e.start</p>
-                <p>To: @e.end</p>
-                <a asp-controller="Time" asp-action="EditEvent" asp-route-id="@e.EventId" class="btn btn-primary">Edit</a>
-                <a asp-controller="Time" asp-action="Delete" asp-route-id="@e.EventId" class="btn btn-primary">Delete</a>
-                <br />
-                <br />
-            </div>
+        <div id="event" class="col-md-3 @istoday @ispast" style="background-color:">
+            <p>@e.Name</p>
+            <p>@e.Description</p>
+            <p>From: @e.start</p>
+            <p>To: @e.end</p>
+            <a asp-controller="Time" asp-action="EditEvent" asp-route-id="@e.EventId" class="btn btn-primary">Edit</a>
+            <a asp-controller="Time" asp-action="Delete" asp-route-id="@e.EventId" class="btn btn-primary">Delete</a>
+            <br />
+            <br />
+        </div>
         }
     </div>
 </div>

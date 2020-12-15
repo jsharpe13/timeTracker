@@ -24,9 +24,10 @@ namespace timeTracker.Models
         [Required(ErrorMessage = "Please enter an end time")]
         public DateTime end { get; set; }
 
-        public bool isToday => start.Date == DateTime.Today.Date;
+        //public bool isToday => start.Date.Equals(DateTime.Today.Date);
+        public bool isToday => TimeZoneInfo.ConvertTime(start.Date, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")) == TimeZoneInfo.ConvertTime(DateTime.Now.Date.AddDays(-1), TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"));
 
-        public bool isPast => start.Date < DateTime.Today.Date;
+        public bool isPast => TimeZoneInfo.ConvertTime(start.Date, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")) < TimeZoneInfo.ConvertTime(DateTime.Now.Date.AddDays(-1), TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"));
 
     }
 }
